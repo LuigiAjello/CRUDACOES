@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1>Detalhes da Carteira: {{ carteira.nome }}</h1>
+<p class="text-muted">Aqui você pode visualizar e gerenciar as ações desta carteira. Adicione novas ações ou edite as existentes conforme necessário.</p>
+<a href="{{ url_for('nova_acao', carteira_id=carteira.id) }}" class="btn btn-primary mb-3">Adicionar Nova Ação</a>
+{% if carteira.acoes %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Quantidade</th>
+                <th>Preço Médio</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acao in carteira.acoes %}
+            <tr>
+                <td>{{ acao.ticker }}</td>
+                <td>{{ acao.quantidade }}</td>
+                <td>R$ {{ "{:.2f}".format(acao.preco_medio).replace('.', ',') }}</td>
+                <td>
+                    <a href="{{ url_for('editar_acao', acao_id=acao.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{{ url_for('excluir_acao', acao_id=acao.id) }}" class="btn btn-danger btn-sm"
+       onclick="return confirm('Tem certeza que deseja excluir esta ação?')">Excluir</a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="text-muted">Nenhuma ação cadastrada nesta carteira.</p>
+{% endif %}
+<a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Minhas Carteiras</h1>
+    <a href="{{ url_for('nova_carteira') }}" class="btn btn-success">+ Nova Carteira</a>
+</div>
+<p class="text-muted">Aqui você pode gerenciar suas carteiras de investimentos de forma fácil e intuitiva. Selecione uma carteira para visualizar suas ações ou crie uma nova carteira agora mesmo!</p>
+{% if carteiras %}
+    <ul class="list-group mt-4">
+        {% for carteira in carteiras %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ carteira.nome }}</strong>
+                <p class="mb-0 text-muted">Clique para visualizar ou editar as ações desta carteira.</p>
+            </div>
+            <div>
+                <a href="{{ url_for('detalhes_carteira', carteira_id=carteira.id) }}" class="btn btn-primary btn-sm me-2">Ver Carteira</a>
+                <a href="{{ url_for('excluir_carteira', carteira_id=carteira.id) }}" class="btn btn-danger btn-sm">Excluir</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="alert alert-warning mt-4" role="alert">
+        <h4 class="alert-heading">Nenhuma carteira cadastrada!</h4>
+        <p>Você ainda não possui carteiras cadastradas. Clique no botão abaixo para criar sua primeira carteira e começar a gerenciar seus investimentos.</p>
+        <hr>
+        <a href="{{ url_for('nova_carteira') }}" class="btn btn-success">Criar Primeira Carteira</a>
+    </div>
+{% endif %}
+{% endblock %}

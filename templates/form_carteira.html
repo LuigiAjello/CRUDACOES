@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h1>Nova Carteira</h1>
+<p class="text-muted">Preencha o nome da nova carteira que você deseja criar. Você poderá adicionar ações a ela posteriormente.</p>
+<form method="POST" class="form-group">
+    <label for="nome">Nome da Carteira</label>
+    <input type="text" name="nome" id="nome" class="form-control mb-3" placeholder="Nome da Carteira" required>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
